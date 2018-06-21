@@ -139,8 +139,8 @@ func (t *TtyDevicePlugin) Allocate(ctx context.Context, reqs *pluginapi.Allocate
 	var response pluginapi.AllocateResponse
 
 	dev := new(pluginapi.DeviceSpec)
-	dev.HostPath = "/dev/tty99"
-	dev.ContainerPath = "/dev/tty0"
+	dev.HostPath = defaultDevPath()
+	dev.ContainerPath = containerDevPath
 	dev.Permissions = "rw"
 
 	response.Devices = append(response.Devices, dev)
@@ -163,11 +163,11 @@ func (t *TtyDevicePlugin) ListAndWatch(e *pluginapi.Empty, s pluginapi.DevicePlu
 
 // unhealth : report unhealth device and try to fix it
 func (t *TtyDevicePlugin) unhealth(dev *pluginapi.Device) {
-	logrus.Warning("Device unhealth detected, device is /dev/", dev.ID)
+	logrus.Warning("Device unhealth detected, device is ", devPath(dev.ID))
 	// try to recreate device
 
 	if err := createTtyDevices(dev.ID); err != nil {
-		logrus.Error("Failed to create TTY device ", "/dev/"+dev.ID, " ", err)
+		logrus.Error("Failed to create TTY device ", devPath(dev.ID), " ", err)
 	}
 }
 
@@ -177,7 +177,7 @@ func (t *TtyDevicePlugin) healthcheck() {
 		devs := []*pluginapi.Device{}
 		for _, dev := range t.devs {
 			//test write to tty device
-			devPath := "/dev/" + dev.ID
+			devPath := devPath(dev.ID)
 			f, err := os.Open(devPath)
 			if err != nil {
 				logrus.Warning("Device is not readable , device is ", devPath, " -> ", err)

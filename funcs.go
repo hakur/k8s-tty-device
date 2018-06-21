@@ -33,20 +33,29 @@ func dialUnixGrpc(unixSocketPath string, timeout time.Duration) (*grpc.ClientCon
 
 // mknod -m 0620 /dev/tty99 c 4 0
 func createTtyDevices(ttyName string) error {
-	cmd := exec.Command("mknod", []string{"-m", "0620", "/dev/" + ttyName, "c", "4", "0"}...)
-	logrus.Info("Creeate tty device /dev/", ttyName, ", command is [ ", strings.Join(cmd.Args, " "), " ]")
+	devPath := devPath(ttyName)
+	cmd := exec.Command("mknod", []string{"-m", "0620", devPath, "c", "4", "0"}...)
+	logrus.Info("Creeate tty device ", devPath, ", command is [ ", strings.Join(cmd.Args, " "), " ]")
 	err := cmd.Run()
 	buf, _ := cmd.Output()
 	if err != nil {
 		return errors.New(err.Error() + " : " + string(buf))
 	}
 
-	cmd = exec.Command("chown", []string{"root:tty", "/dev/" + ttyName}...)
-	logrus.Info("Set permission tty device /dev/", ttyName, ", command is [ ", strings.Join(cmd.Args, " "), " ]")
+	cmd = exec.Command("chown", []string{"root:tty", devPath}...)
+	logrus.Info("Set permission tty device ", devPath, ", command is [ ", strings.Join(cmd.Args, " "), " ]")
 	err = cmd.Run()
 	buf, _ = cmd.Output()
 	if err != nil {
 		return errors.New(err.Error() + " : " + string(buf))
 	}
 	return nil
+}
+
+func devPath(devName string) string {
+	return hostDeviceDir + "/" + devName
+}
+
+func defaultDevPath() string {
+	return hostDeviceDir + "/" + defaultDev
 }

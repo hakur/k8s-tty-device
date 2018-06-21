@@ -1,0 +1,20 @@
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: k8s-tty-device
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ""
+    spec:
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      containers:
+        #- image: rumia/k8s-tty-device:1.0
+        - image: registry.cn-shenzhen.aliyuncs.com/yuxing/k8s-tty-device
+          name: k8s-tty-device-container
+          securityContext:
+            privileged: true

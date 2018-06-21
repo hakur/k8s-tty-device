@@ -1,12 +1,31 @@
 package main
 
 import (
+	"os"
+
 	"github.com/sirupsen/logrus"
 	fsnotify "gopkg.in/fsnotify.v1"
 	pluginapi "k8s.io/kubernetes/pkg/kubelet/apis/deviceplugin/v1alpha"
 )
 
+const (
+	hostDeviceDir    = "/opt/k8s-tty-device"
+	defaultDev       = "tty99"
+	containerDevPath = "/dev/tty0"
+)
+
 func main() {
+	//check devices dir exists
+	if f, err := os.Open(hostDeviceDir); err != nil {
+		if os.IsNotExist(err) {
+			if err = os.MkdirAll(hostDeviceDir, 0755); err != nil {
+				logrus.Info("Failed to reate dir ", hostDeviceDir, " -> ", err)
+			}
+		}
+	} else {
+		f.Close()
+	}
+
 	customFormatter := new(logrus.TextFormatter)
 	customFormatter.TimestampFormat = "2006-01-02 15:04:05"
 	customFormatter.FullTimestamp = true
