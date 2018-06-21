@@ -18,7 +18,7 @@ this project is linkage with [centos7-xfce4](https://github.com/hakur/centos-xfc
     * X11 server need /dev/tty0 for I/O
 
 ##what this plugin will make changes to your host machine
-    * it will automatically create a tty device on host machine, adrees is /dev/tty99
+    * it will automatically create a tty device on host machine, adrees is /opt/k8s-tty-device/tty99
 
 
 ## required
