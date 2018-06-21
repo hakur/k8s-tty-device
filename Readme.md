@@ -22,7 +22,10 @@
     * privileged is required if run in container
     * kubernetes 1.9 (warning kubernetes 1.10 is deferent,api has changed,1.10 code has been written will push later)
     * an centos-xfce4 x11 desktop (will document this in later few days)
-
+## Run in kubernetes
+    ```
+    kubectl apply -f https://raw.githubusercontent.com/hakur/k8s-tty-device/master/k8s-tty-device.yml
+    ```
 ## Notice
     * xrog-glx is conflict with nvidia-glx (I hate this war)
     * if you want to install nvidia driver,  you must diable nouveau kernel module

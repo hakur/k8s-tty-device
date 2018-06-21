@@ -6,6 +6,8 @@ metadata:
 spec:
   template:
     metadata:
+      labels:
+        name: k8s-tty-device-ds
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
@@ -13,8 +15,20 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
       containers:
-        #- image: rumia/k8s-tty-device:1.0
-        - image: registry.cn-shenzhen.aliyuncs.com/yuxing/k8s-tty-device
+        - image: rumia/k8s-tty-device:1.0
+        #- image: registry.cn-shenzhen.aliyuncs.com/yuxing/k8s-tty-device
           name: k8s-tty-device-container
           securityContext:
             privileged: true
+          volumeMounts:
+          - name: device-plugin
+            mountPath: /var/lib/kubelet/device-plugins
+          - name: devices
+            mountPath: /opt/k8s-tty-device
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: devices
+          hostPath:
+            path: /opt/k8s-tty-device
