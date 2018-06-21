@@ -30,7 +30,7 @@ this project is linkage with [centos7-xfce4](https://github.com/hakur/centos-xfc
     * an centos-xfce4 x11 desktop (will document this in later few days)
 ## Run in kubernetes
     ```
-    kubectl apply -f https://raw.githubusercontent.com/hakur/k8s-tty-device/master/k8s-tty-device.yml
+    kubectl apply -f https://raw.githubusercontent.com/hakur/k8s-tty-device/k8s-1.10/k8s-tty-device.yml
     ```
 ## Notice
     * master branch code version is kubernetes 1.9
