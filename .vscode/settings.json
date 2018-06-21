@@ -35,6 +35,7 @@
         "main.exe":true,
         "PULL_REQUEST_TEMPLATE.zh-CN.md":true,
         "ISSUE_TEMPLATE.zh-CN.md":true,
+        "vendor":true,
         "db":true,
         "screenshots":true
     }

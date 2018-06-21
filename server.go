@@ -11,7 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"google.golang.org/grpc"
-	pluginapi "k8s.io/kubernetes/pkg/kubelet/apis/deviceplugin/v1alpha"
+	pluginapi "k8s.io/kubernetes/pkg/kubelet/apis/deviceplugin/v1beta1"
 )
 
 const (
@@ -112,6 +112,16 @@ func (t *TtyDevicePlugin) Stop() error {
 	return t.cleanup()
 }
 
+// GetDevicePluginOptions : inherit from pluginapi Interface , this accept options from kubernetes , we can do some change by apply this options
+func (t *TtyDevicePlugin) GetDevicePluginOptions(context.Context, *pluginapi.Empty) (*pluginapi.DevicePluginOptions, error) {
+	return &pluginapi.DevicePluginOptions{}, nil
+}
+
+// PreStartContainer : inherit from pluginapi Interface
+func (t *TtyDevicePlugin) PreStartContainer(context.Context, *pluginapi.PreStartContainerRequest) (*pluginapi.PreStartContainerResponse, error) {
+	return &pluginapi.PreStartContainerResponse{}, nil
+}
+
 // Resgister : inherit from pluginapi Interface , this register device plugin name to kubernetes
 func (t *TtyDevicePlugin) Resgister(kubeletEndpoint string, resourceName string) error {
 	conn, err := dialUnixGrpc(kubeletEndpoint, 5*time.Second)
@@ -143,7 +153,10 @@ func (t *TtyDevicePlugin) Allocate(ctx context.Context, reqs *pluginapi.Allocate
 	dev.ContainerPath = containerDevPath
 	dev.Permissions = "rw"
 
-	response.Devices = append(response.Devices, dev)
+	var containerResponse pluginapi.ContainerAllocateResponse
+	containerResponse.Devices = append(containerResponse.Devices, dev)
+
+	response.ContainerResponses = append(response.ContainerResponses, &containerResponse)
 
 	return &response, nil
 }

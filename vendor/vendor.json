@@ -213,9 +213,9 @@
 			"revisionTime": "2018-06-20T00:32:50Z"
 		},
 		{
-			"checksumSHA1": "slQIXkTOxR9T0qpSCyU3WqBmue4=",
-			"origin": "k8s.io/kubernetes/vendor/google.golang.org/grpc/grpclb/grpc_lb_v1",
-			"path": "google.golang.org/grpc/grpclb/grpc_lb_v1",
+			"checksumSHA1": "UozJIOSHWv9F1GappFKgEo+eSrQ=",
+			"origin": "k8s.io/kubernetes/vendor/google.golang.org/grpc/grpclb/grpc_lb_v1/messages",
+			"path": "google.golang.org/grpc/grpclb/grpc_lb_v1/messages",
 			"revision": ""
 		},
 		{
@@ -321,8 +321,8 @@
 			"revisionTime": "2016-06-29T01:11:04Z"
 		},
 		{
-			"checksumSHA1": "iDzL6Ol6VKNVcJApSNoFm6Q6ViQ=",
-			"path": "k8s.io/kubernetes/pkg/kubelet/apis/deviceplugin/v1alpha",
+			"checksumSHA1": "sGN36miecRiQI4DMAx+Vb7yDBNM=",
+			"path": "k8s.io/kubernetes/pkg/kubelet/apis/deviceplugin/v1beta1",
 			"revision": ""
 		}
 	],

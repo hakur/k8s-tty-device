@@ -2,14 +2,14 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 filegroup(
     name = "go_default_library_protos",
-    srcs = ["grpclb.proto"],
+    srcs = ["messages.proto"],
     visibility = ["//visibility:public"],
 )
 
 go_library(
     name = "go_default_library",
-    srcs = ["grpclb.pb.go"],
-    importpath = "google.golang.org/grpc/grpclb/grpc_lb_v1",
+    srcs = ["messages.pb.go"],
+    importpath = "google.golang.org/grpc/grpclb/grpc_lb_v1/messages",
     visibility = ["//visibility:public"],
     deps = ["//vendor/github.com/golang/protobuf/proto:go_default_library"],
 )
