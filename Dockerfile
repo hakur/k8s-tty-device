@@ -5,7 +5,7 @@ RUN git clone --depth 1 https://github.com/hakur/k8s-tty-device /code
 
 
 FROM golang:1.10.3-alpine as build
-RUN mkdir /gopath/src/github.com/hakur
+RUN mkdir -p /gopath/src/github.com/hakur
 ENV GOPATH=/gopath
 COPY --from=clone /code/k8s-tty-device /gopath/src/github.com/hakur/
 RUN go build -ldflags "-s -w" -o /gopath/k8s-tty-device /gopath/src/github.com/hakur/k8s-tty-device
