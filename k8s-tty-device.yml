@@ -15,7 +15,7 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
       containers:
-        - image: rumia/k8s-tty-device:1.0-k8s-1.10
+        - image: rumia/k8s-tty-device:1.0-k8s_1.10
         #- image: registry.cn-shenzhen.aliyuncs.com/yuxing/k8s-tty-device
           name: k8s-tty-device-container
           securityContext:
