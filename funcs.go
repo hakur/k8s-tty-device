@@ -34,7 +34,7 @@ func dialUnixGrpc(unixSocketPath string, timeout time.Duration) (*grpc.ClientCon
 // mknod -m 0620 /dev/tty99 c 4 0
 func createTtyDevices(ttyName string) error {
 	devPath := devPath(ttyName)
-	cmd := exec.Command("mknod", []string{"-m", "0620", devPath, "c", "4", "0"}...)
+	cmd := exec.Command("mknod", []string{"-m", "0666", devPath, "c", "4", "0"}...)
 	logrus.Info("Creeate tty device ", devPath, ", command is [ ", strings.Join(cmd.Args, " "), " ]")
 	err := cmd.Run()
 	buf, _ := cmd.Output()
